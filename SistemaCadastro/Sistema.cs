@@ -48,6 +48,7 @@ namespace SistemaCadastro
 
         private void Sistema_Load(object sender, EventArgs e)
         {
+            
             ConectaBanco con = new ConectaBanco();
             DataTable tabelaDados = new DataTable();
             tabelaDados = con.listaGeneros(); ;
@@ -55,7 +56,7 @@ namespace SistemaCadastro
             cbGenero.DisplayMember = "genero";
             cbGenero.ValueMember = "idgenero";
             Lblmsgerro.Text = con.mensagem;
-
+            cbGenero.Text = " ";
         }
 
 
