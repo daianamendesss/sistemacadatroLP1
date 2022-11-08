@@ -265,6 +265,7 @@
             this.txtranking.Name = "txtranking";
             this.txtranking.Size = new System.Drawing.Size(560, 27);
             this.txtranking.TabIndex = 12;
+            this.txtranking.TextChanged += new System.EventHandler(this.txtranking_TextChanged);
             // 
             // label6
             // 
