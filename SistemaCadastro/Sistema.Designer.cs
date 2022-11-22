@@ -314,6 +314,7 @@
             this.txtnome.Name = "txtnome";
             this.txtnome.Size = new System.Drawing.Size(560, 29);
             this.txtnome.TabIndex = 9;
+            this.txtnome.TextChanged += new System.EventHandler(this.txtnome_TextChanged);
             // 
             // label3
             // 

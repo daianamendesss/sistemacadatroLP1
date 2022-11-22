@@ -106,7 +106,22 @@ namespace SistemaCadastro
 
         private void btnRemoveBanda_Click(object sender, EventArgs e)
         {
-           
+            int linha = dgBandas.CurrentRow.Index;// pega a linha selecionanda
+            int idRemover = Convert.ToInt32(
+                            dgBandas.Rows[linha].Cells["idbandas"].Value.ToString());
+            DialogResult resp = MessageBox.Show("Deseja realmente excluir?", "Remove banda", MessageBoxButtons.OKCancel);
+            if (resp == DialogResult.OK)
+            {
+                ConectaBanco conecta = new ConectaBanco();
+                bool retorno = conecta.deletaBanda(idRemover);
+                if (retorno == true)
+                    MessageBox.Show("Banda excluída");
+                else
+                    Lblmsgerro.Text = conecta.mensagem;
+                listaBanda();
+            }// fim if ok
+            else
+                MessageBox.Show("Operação cancelada");
         }
 
         private void btnAlterar_Click(object sender, EventArgs e)
@@ -132,6 +147,11 @@ namespace SistemaCadastro
         }
 
         private void txtranking_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtnome_TextChanged(object sender, EventArgs e)
         {
 
         }
