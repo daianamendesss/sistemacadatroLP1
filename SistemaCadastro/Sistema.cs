@@ -13,7 +13,7 @@ namespace SistemaCadastro
 {
     public partial class Sistema : Form
     {
-
+        int idAlterar;
         public Sistema()
         {
             InitializeComponent();
@@ -49,6 +49,11 @@ namespace SistemaCadastro
             cbGenero.DataSource = tabelaDados;
             cbGenero.DisplayMember = "genero";
             cbGenero.ValueMember = "idgenero";
+            // preenchendo cbAlteraGenero
+            cbAlteraGenero.DataSource = tabelaDados;
+            cbAlteraGenero.DisplayMember = "genero";
+            cbAlteraGenero.ValueMember = "idgenero";
+            //
             Lblmsgerro.Text = con.mensagem;
             cbGenero.Text = "";
 
@@ -126,12 +131,36 @@ namespace SistemaCadastro
 
         private void btnAlterar_Click(object sender, EventArgs e)
         {
-            
+            int linha = dgBandas.CurrentRow.Index;// pega a linha selecionanda
+             idAlterar = Convert.ToInt32(
+                            dgBandas.Rows[linha].Cells["idbandas"].Value.ToString());
+            txtAlteraNome.Text = dgBandas.Rows[linha].Cells["nome"].Value.ToString();// alterar nome
+            cbAlteraGenero.Text = dgBandas.Rows[linha].Cells["genero"].Value.ToString();// alterar genero
+            txtAlteraRanking.Text = dgBandas.Rows[linha].Cells["ranking"].Value.ToString();// alterar ranking
+            txtAlteraIntegrantes.Text= dgBandas.Rows[linha].Cells["integrantes"].Value.ToString();// alterar integrantes
+
+
+
+            tabControl1.SelectedTab = tabAlterar; //muda aba
+
         }
 
          private void btnConfirmaAlteracao_Click(object sender, EventArgs e)
         {
-            
+            Banda b = new Banda();
+            b.Nome = txtAlteraNome.Text;
+            b.Ranking = Convert.ToInt32(txtAlteraRanking.Text);
+            b.Integrantes = Convert.ToInt32(txtAlteraIntegrantes.Text);
+            b.Genero = Convert.ToInt32(cbAlteraGenero.SelectedValue.ToString());
+            // Envia os dados para alterar
+            ConectaBanco conecta = new ConectaBanco();
+            bool retorno = conecta.alteraBanda(b,idAlterar);
+            if (retorno)
+                MessageBox.Show("Dados alterados com sucesso!");
+            else
+                Lblmsgerro.Text = conecta.mensagem;
+
+            listaBanda();
 
 
         }
